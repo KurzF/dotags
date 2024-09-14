@@ -140,8 +140,11 @@ const bar = (monitor) => Widget.Window({
 	}),
 });
 
+const hyprland = await Service.import("hyprland");
+const bars = hyprland.monitors.map((m, i) => bar(i));
+
 App.config({
 	style: './style.css',
-	windows: [bar(0), bar(1), Powermenu({ monitor: 0 })]
+	windows: [...bars, Powermenu({ monitor: 0 })]
 });
 

@@ -1,14 +1,15 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
+const hyprland = await Service.import("hyprland");
+
 const focusedTitle = Widget.Label({
-	label: Hyprland.active.client.bind('title'),
-	visible: Hyprland.active.client.bind('address')
+	label: hyprland.active.client.bind('title'),
+	visible: hyprland.active.client.bind('address')
 		.transform(addr => !!addr),
 });
 
-const dispatch = ws => Hyprland.messageAsync(`dispatch workspace ${ws}`);
-const dispatchRelative = ws => Hyprland.messageAsync(`dispatch workspace ${ws >= 0 ? '+' : '-'}${ws}`);
+const dispatch = ws => hyprland.messageAsync(`dispatch workspace ${ws}`);
+const dispatchRelative = ws => hyprland.messageAsync(`dispatch workspace ${ws >= 0 ? '+' : '-'}${ws}`);
 const workspaces = (start, length) => Widget.Box({
 	vertical: true,
 	hpack: 'center',
@@ -20,9 +21,9 @@ const workspaces = (start, length) => Widget.Box({
 		class_name: 'dot',
 		hpack: 'center',
 		onClicked: () => dispatch(i),
-		setup: self => self.hook(Hyprland, () => {
-			self.toggleClassName('active', Hyprland.active.workspace.id === i);
-			self.toggleClassName('occupied', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
+		setup: self => self.hook(hyprland, () => {
+			self.toggleClassName('active', hyprland.active.workspace.id === i);
+			self.toggleClassName('occupied', (hyprland.getWorkspace(i)?.windows || 0) > 0);
 		}),
 	}))
 });
@@ -39,8 +40,8 @@ export default () => Widget.Button({
 			'second': workspaces(5, 5),
 		},
 		transition: 'slide_up_down',
-		setup: self => self.hook(Hyprland, () => {
-			self.shown = Hyprland.active.workspace.id < 6 ? 'first' : 'second';
+		setup: self => self.hook(hyprland, () => {
+			self.shown = hyprland.active.workspace.id < 6 ? 'first' : 'second';
 		})
 
 	})
