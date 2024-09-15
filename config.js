@@ -13,6 +13,7 @@ import Brightness from './brightness.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import Workspaces from './workspace.js';
 
+const battery = await Service.import("battery");
 const time = Variable({
 	hour: "00",
 	minute: "00",
@@ -82,19 +83,21 @@ const brightness = () => Widget.Button({
 	}),
 });
 
+const settings = [
+	preference(),
+	bluetoothButton(),
+	battery.available ? batteryButton() : null,
+	networkButton(),
+	Brightness.available ? brightness() : null,
+	speakerIcon()
+];
+
 const settingsTray = () => Widget.Box({
 	class_name: "tray",
 	spacing: 12,
 	homogeneous: true,
 	vertical: true,
-	children: [
-		preference(),
-		bluetoothButton(),
-		batteryButton(),
-		networkButton(),
-		brightness(),
-		speakerIcon(),
-	],
+	children: settings.filter(n => n != null)
 });
 
 const SysTrayItem = item => Widget.Button({

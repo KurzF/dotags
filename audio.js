@@ -29,8 +29,6 @@ export const speakerIcon = () => Widget.Button({
 	on_primary_click_release: () => audio.speaker.is_muted = !audio.speaker.is_muted,
 	onScrollUp: () => audio.speaker.volume += 0.02,
 	onScrollDown: () => audio.speaker.volume -= 0.02,
-	on_hover: () => console.log("hover"),
-	on_hover_lost: () => console.log(" hover lost"),
 	child: Widget.Icon().hook(audio, self => {
 		if (!audio.speaker) {
 			return;
