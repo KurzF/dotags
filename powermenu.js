@@ -1,7 +1,6 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { volumeSlider } from './audio.js';
 
 const padding = windowName => Widget.EventBox({
 	class_name: 'padding',
@@ -81,7 +80,6 @@ export default ({ monitor }) => {
 				reboot(name),
 				suspend(name),
 				logout(name),
-				volumeSlider()
 			],
 		}),
 		width: 5000,

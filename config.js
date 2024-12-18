@@ -4,7 +4,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { interval, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import Powermenu from './powermenu.js';
 
-import { speakerIcon } from './audio.js';
+import { speakerIcon, volumeSlider } from './audio.js';
 import { batteryButton } from './battery.js';
 import { bluetoothButton } from './bluetooth.js';
 import { networkButton } from './network.js';
@@ -140,6 +140,7 @@ const bar = (monitor) => Widget.Window({
 		vertical: true,
 		start_widget: startWidget(),
 		end_widget: endWidget(),
+		center_widget: volumeSlider(),
 	}),
 });
 

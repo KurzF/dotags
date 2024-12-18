@@ -14,14 +14,11 @@ export const audioPopup = () => Widget.Window({
 });
 
 export const volumeSlider = () => Widget.Slider({
-	hexpand: true,
-	on_change: ({ value, dragging }) => {
-		if (dragging) {
-			audio.speaker.volume = value
-			audio.speaker.is_muted = false
-		}
-	},
-	value: audio.speaker.bind("volume")
+	vertical: true,
+	min: 0,
+	max: 100,
+	value: 50,
+	height_request: 50
 });
 
 export const speakerIcon = () => Widget.Button({
